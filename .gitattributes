@@ -1,0 +1,17 @@
+# Normaliza quebras de linha entre Windows/macOS/Linux e o CI.
+* text=auto eol=lf
+
+# Scripts Windows e Gradle wrapper mantêm seu formato nativo.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+gradlew text eol=lf
+gradlew.bat text eol=crlf
+
+# Binários (sem conversão).
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.jar binary
+*.jks binary
+*.keystore binary

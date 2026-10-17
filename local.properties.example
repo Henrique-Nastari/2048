@@ -1,0 +1,26 @@
+# ══════════════════════════════════════════════════════════════════════════
+#  Template de configuração local — COPIE para "local.properties" e preencha.
+#
+#  O local.properties NUNCA vai para o Git (está no .gitignore): ele guarda
+#  caminho do SDK, IDs do AdMob e senhas da keystore de assinatura.
+# ══════════════════════════════════════════════════════════════════════════
+
+# Caminho do Android SDK (o Android Studio preenche automaticamente)
+# Windows: use barras normais ou escape as barras invertidas
+sdk.dir=C:/Users/SEU_USUARIO/AppData/Local/Android/Sdk
+
+# ── AdMob (produção) ──────────────────────────────────────────────────────
+# Encontre os IDs em https://admob.google.com > Apps > (seu app) > Blocos de anúncios
+# Se estas linhas não existirem, o app usa os IDs de TESTE oficiais do Google.
+ADMOB_APP_ID=ca-app-pub-XXXXXXXXXXXXXXXX~YYYYYYYYYY
+ADMOB_BANNER_ID=ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB
+ADMOB_INTERSTITIAL_ID=ca-app-pub-XXXXXXXXXXXXXXXX/IIIIIIIIII
+ADMOB_REWARDED_ID=ca-app-pub-XXXXXXXXXXXXXXXX/RRRRRRRRRR
+
+# ── Assinatura de release ─────────────────────────────────────────────────
+# Gere a keystore com:  powershell -File tools/create-upload-keystore.ps1
+# (ou com keytool — veja o README). Guarde o .jks e as senhas em local seguro!
+RELEASE_STORE_FILE=C:/Users/SEU_USUARIO/.android-keys/hcn2048-upload.jks
+RELEASE_STORE_PASSWORD=
+RELEASE_KEY_ALIAS=hcn2048
+RELEASE_KEY_PASSWORD=

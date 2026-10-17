@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tagline">Swipe to move the tiles. Merge equal numbers to reach 2048!</string>
+    <string name="score">Score</string>
+    <string name="best">Best</string>
+    <string name="new_game">New game</string>
+    <string name="undo">Undo</string>
+    <string name="undo_with_ad">Undo (watch ad)</string>
+    <string name="settings">Settings</string>
+    <string name="close">Close</string>
+    <string name="haptics">Vibration</string>
+    <string name="theme">Theme</string>
+    <string name="theme_classic">Classic</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_neon">Neon</string>
+    <string name="remove_ads">Remove ads</string>
+    <string name="remove_ads_title">Remove ads</string>
+    <string name="remove_ads_desc">Play without banners or interruptions. One-time purchase, forever yours.</string>
+    <string name="buy">Buy</string>
+    <string name="buy_for">Buy for %1$s</string>
+    <string name="restore_purchases">Restore purchases</string>
+    <string name="not_now">Not now</string>
+    <string name="how_to_play">How to play</string>
+    <string name="how_to_play_text">Swipe in any direction to slide all tiles. When two tiles with the same number touch, they merge into one. Reach 2048 to win — and keep going for a higher score!</string>
+    <string name="game_over_title">Game over!</string>
+    <string name="game_over_score">Score: %1$d</string>
+    <string name="revive_with_ad">Revive (watch ad)</string>
+    <string name="win_title">You win!</string>
+    <string name="win_text">You reached %1$d! Keep playing for a higher score.</string>
+    <string name="keep_playing">Keep playing</string>
+    <string name="purchase_success">Purchase complete. Ads removed!</string>
+    <string name="purchase_canceled">Purchase canceled.</string>
+    <string name="purchase_error">Purchase failed. Please try again.</string>
+    <string name="restore_not_found">No purchases found to restore.</string>
+    <string name="ads_not_available">Ad not available right now. Try again in a moment.</string>
+    <string name="privacy_options">Privacy options</string>
+</resources>

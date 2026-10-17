@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tagline">Deslize para mover os blocos. Junte os números iguais e chegue ao 2048!</string>
+    <string name="score">Pontos</string>
+    <string name="best">Recorde</string>
+    <string name="new_game">Novo jogo</string>
+    <string name="undo">Desfazer</string>
+    <string name="undo_with_ad">Desfazer (ver anúncio)</string>
+    <string name="settings">Ajustes</string>
+    <string name="close">Fechar</string>
+    <string name="haptics">Vibração</string>
+    <string name="theme">Tema</string>
+    <string name="theme_classic">Clássico</string>
+    <string name="theme_dark">Escuro</string>
+    <string name="theme_neon">Neon</string>
+    <string name="remove_ads">Remover anúncios</string>
+    <string name="remove_ads_title">Remover anúncios</string>
+    <string name="remove_ads_desc">Jogue sem banners ou interrupções. Compra única, para sempre.</string>
+    <string name="buy">Comprar</string>
+    <string name="buy_for">Comprar por %1$s</string>
+    <string name="restore_purchases">Restaurar compras</string>
+    <string name="not_now">Agora não</string>
+    <string name="how_to_play">Como jogar</string>
+    <string name="how_to_play_text">Deslize em qualquer direção para mover os blocos. Quando dois blocos de mesmo valor se tocam, eles se fundem. Chegue ao 2048 para vencer — e continue para pontuar ainda mais!</string>
+    <string name="game_over_title">Fim de jogo!</string>
+    <string name="game_over_score">Pontos: %1$d</string>
+    <string name="revive_with_ad">Reviver (ver anúncio)</string>
+    <string name="win_title">Você venceu!</string>
+    <string name="win_text">Você alcançou o %1$d! Continue jogando para pontuar ainda mais.</string>
+    <string name="keep_playing">Continuar jogando</string>
+    <string name="purchase_success">Compra concluída. Anúncios removidos!</string>
+    <string name="purchase_canceled">Compra cancelada.</string>
+    <string name="purchase_error">A compra falhou. Tente novamente.</string>
+    <string name="restore_not_found">Nenhuma compra encontrada para restaurar.</string>
+    <string name="ads_not_available">Anúncio indisponível agora. Tente novamente em instantes.</string>
+    <string name="privacy_options">Opções de privacidade</string>
+</resources>
