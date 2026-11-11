@@ -40,8 +40,8 @@ android {
         applicationId = "com.hcn2048.game"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 5
-        versionName = "1.0.3"
+        versionCode = 6
+        versionName = "1.0.4"
 
         manifestPlaceholders["admobAppId"] =
             localProp("ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")

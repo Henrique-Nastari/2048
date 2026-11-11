@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.ump.ConsentInformation
 import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
@@ -75,6 +76,19 @@ object AdsConsent {
 
     private fun initializeAds(activity: Activity) {
         if (consentInformation?.canRequestAds() == false) return
+
+        // Devices listed here ALWAYS receive TEST ads (never real ones), so the
+        // developer can safely explore/click them. The correct ID is printed by
+        // the SDK in logcat:
+        //   "Use RequestConfiguration... setTestDeviceIds(Arrays.asList("<ID>"))"
+        // Keep your own device here so you never accidentally click real ads.
+        val testDeviceIds = listOf("7E34FC670FE0CB8F1F19789BEA6BB16D")
+        MobileAds.setRequestConfiguration(
+            RequestConfiguration.Builder()
+                .setTestDeviceIds(testDeviceIds)
+                .build(),
+        )
+
         MobileAds.initialize(activity) {
             _adsReady.value = true
         }
