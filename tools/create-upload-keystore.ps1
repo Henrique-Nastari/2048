@@ -5,7 +5,7 @@
 #
 # O keytool vai pedir interativamente:
 #   1) uma senha para a keystore (guarde!);
-#   2) dados do certificado (nome, organização, cidade, estado, país);
+#   2) dados do certificado (nome, organizacao, cidade, estado, pais);
 #   3) a senha da chave (pode ser a mesma da keystore).
 #
 # Depois preencha RELEASE_STORE_FILE, RELEASE_STORE_PASSWORD, RELEASE_KEY_ALIAS e
@@ -24,7 +24,7 @@ if (-not $keytool -and $env:JAVA_HOME) {
     if (Test-Path $candidate) { $keytool = $candidate }
 }
 if (-not $keytool -or -not (Test-Path $keytool)) {
-    Write-Error "keytool não encontrado. Instale um JDK ou rode com o JDK do Android Studio e defina JAVA_HOME."
+    Write-Error "keytool nao encontrado. Instale um JDK ou rode com o JDK do Android Studio e defina JAVA_HOME."
     exit 1
 }
 
@@ -34,12 +34,12 @@ if (-not (Test-Path $dir)) {
 }
 
 if (Test-Path $OutputPath) {
-    Write-Error "Já existe uma keystore em $OutputPath. Remova ou escolha outro caminho com -OutputPath."
+    Write-Error "Ja existe uma keystore em $OutputPath. Remova ou escolha outro caminho com -OutputPath."
     exit 1
 }
 
 Write-Host ""
-Write-Host "Keystore será criada em: $OutputPath" -ForegroundColor Cyan
+Write-Host "Keystore sera criada em: $OutputPath" -ForegroundColor Cyan
 Write-Host "Validade: 10.000 dias | Algoritmo: RSA 2048 | Alias: $Alias" -ForegroundColor Cyan
 Write-Host ""
 
@@ -53,13 +53,13 @@ if ($LASTEXITCODE -ne 0) {
 $pathForProperties = $OutputPath -replace '\\', '/'
 
 Write-Host ""
-Write-Host "✔ Keystore criada com sucesso!" -ForegroundColor Green
+Write-Host "[OK] Keystore criada com sucesso!" -ForegroundColor Green
 Write-Host ""
 Write-Host "Adicione ao seu local.properties:" -ForegroundColor Green
 Write-Host "RELEASE_STORE_FILE=$pathForProperties"
-Write-Host "RELEASE_STORE_PASSWORD=<a senha da keystore que você digitou>"
+Write-Host "RELEASE_STORE_PASSWORD=<a senha da keystore que voce digitou>"
 Write-Host "RELEASE_KEY_ALIAS=$Alias"
-Write-Host "RELEASE_KEY_PASSWORD=<a senha da chave que você digitou>"
+Write-Host "RELEASE_KEY_PASSWORD=<a senha da chave que voce digitou>"
 Write-Host ""
-Write-Host "⚠ Faça backup da keystore e das senhas em local seguro (gerenciador de senhas/cofre)." -ForegroundColor Red
-Write-Host "⚠ Se perder esta chave, os usuários atuais não poderão receber atualizações pelo mesmo app." -ForegroundColor Red
+Write-Host "[ATENCAO] Faca backup da keystore e das senhas em local seguro (gerenciador de senhas/cofre)." -ForegroundColor Red
+Write-Host "[ATENCAO] Se perder esta chave, os usuarios atuais nao poderao receber atualizacoes pelo mesmo app." -ForegroundColor Red
