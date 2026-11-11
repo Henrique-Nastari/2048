@@ -7,7 +7,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.aspectRatio
@@ -26,27 +25,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.hcn2048.model.Direction
 import com.hcn2048.model.GameBoard
 import com.hcn2048.model.GhostTile
 import com.hcn2048.model.Tile
 import com.hcn2048.ui.theme.GameTheme
 import kotlinx.coroutines.delay
-import kotlin.math.abs
-import kotlin.math.max
 
 private const val GHOST_ANIMATION_MS = 280L
-private const val SWIPE_THRESHOLD_DP = 24
 
 /**
  * The animated 4x4 board.
@@ -54,18 +47,18 @@ private const val SWIPE_THRESHOLD_DP = 24
  *  - tiles keep a stable id, so movement is animated by simply changing their offset;
  *  - merging tiles leave a short-lived "ghost" that slides into the survivor and fades out;
  *  - spawned tiles pop in with a spring; merged survivors pop as well.
+ *
+ * Swipe detection lives on the whole game screen (see `gameSwipeGestures`).
  */
 @Composable
 fun GameBoardView(
     board: GameBoard,
     theme: GameTheme,
     hapticsEnabled: Boolean,
-    onSwipe: (Direction) -> Unit,
     onGhostsConsumed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val haptics = LocalHapticFeedback.current
-    var drag by remember { mutableStateOf(Offset.Zero) }
 
     LaunchedEffect(board.moveCount) {
         if (board.moveCount > 0 && board.ghosts.isNotEmpty() && hapticsEnabled) {
@@ -90,27 +83,7 @@ fun GameBoardView(
             modifier = Modifier
                 .fillMaxSize()
                 .clip(RoundedCornerShape(maxWidth * 0.04f))
-                .background(theme.boardBackground)
-                .pointerInput(Unit) {
-                    detectDragGestures(
-                        onDragStart = { drag = Offset.Zero },
-                        onDrag = { change, delta ->
-                            change.consume()
-                            drag += delta
-                        },
-                        onDragEnd = {
-                            val threshold = SWIPE_THRESHOLD_DP.dp.toPx()
-                            val (dx, dy) = drag
-                            if (max(abs(dx), abs(dy)) >= threshold) {
-                                if (abs(dx) > abs(dy)) {
-                                    onSwipe(if (dx > 0) Direction.RIGHT else Direction.LEFT)
-                                } else {
-                                    onSwipe(if (dy > 0) Direction.DOWN else Direction.UP)
-                                }
-                            }
-                        },
-                    )
-                },
+                .background(theme.boardBackground),
         ) {
             for (row in 0 until gridSize) {
                 for (col in 0 until gridSize) {

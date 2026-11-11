@@ -43,9 +43,11 @@ import com.hcn2048.ui.components.GameBoardView
 import com.hcn2048.ui.components.GameOverDialog
 import com.hcn2048.ui.components.HowToPlayDialog
 import com.hcn2048.ui.components.RemoveAdsDialog
+import com.hcn2048.ui.components.RestartDialog
 import com.hcn2048.ui.components.ScoreHeader
 import com.hcn2048.ui.components.SettingsDialog
 import com.hcn2048.ui.components.WinDialog
+import com.hcn2048.ui.components.gameSwipeGestures
 import com.hcn2048.ui.theme.GameTheme
 import org.jetbrains.compose.resources.stringResource
 
@@ -115,6 +117,7 @@ fun GameScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
+                .gameSwipeGestures(viewModel::onSwipe)
                 .padding(horizontal = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -125,7 +128,6 @@ fun GameScreen(
                 board = state.board,
                 theme = theme,
                 hapticsEnabled = state.hapticsEnabled,
-                onSwipe = viewModel::onSwipe,
                 onGhostsConsumed = viewModel::onGhostsAnimationFinished,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -152,7 +154,7 @@ fun GameScreen(
                     )
                 }
                 Button(
-                    onClick = viewModel::onNewGame,
+                    onClick = viewModel::onNewGameRequested,
                     modifier = Modifier
                         .weight(1f)
                         .height(48.dp),
@@ -190,6 +192,14 @@ fun GameScreen(
             reviveAvailable = state.reviveAvailable,
             onRevive = viewModel::onReviveRequested,
             onNewGame = viewModel::onNewGame,
+        )
+    }
+
+    if (state.showRestartDialog) {
+        RestartDialog(
+            score = state.board.score,
+            onConfirm = viewModel::onRestartConfirmed,
+            onDismiss = viewModel::onRestartCanceled,
         )
     }
 

@@ -19,12 +19,13 @@ data class GameUiState(
     val showSettingsDialog: Boolean = false,
     val showRemoveAdsDialog: Boolean = false,
     val showHowToPlayDialog: Boolean = false,
+    val showRestartDialog: Boolean = false,
     val removeAdsPrice: String? = null,
     val privacyOptionsRequired: Boolean = false,
 )
 
 /** What a rewarded ad grants when fully watched. */
-enum class RewardType { Undo, Revive }
+enum class RewardType { Undo, Revive, NewGame }
 
 /** One-shot side effects consumed by the UI (ads, snackbars). */
 sealed interface GameEvent {

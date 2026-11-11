@@ -203,6 +203,7 @@ class GameViewModel(
         when (reward) {
             RewardType.Undo -> performUndo()
             RewardType.Revive -> performRevive()
+            RewardType.NewGame -> onNewGame()
         }
     }
 
@@ -211,6 +212,29 @@ class GameViewModel(
     }
 
     // --- Game flow ---
+
+    /**
+     * Toolbar button behavior: restarting a brand-new board is free; restarting a
+     * scored game asks for a rewarded ad (the dialog offers "keep playing" too).
+     */
+    fun onNewGameRequested() {
+        val board = _uiState.value.board
+        val freshGame = board.score == 0 && board.moveCount < FRESH_MOVES
+        if (freshGame) {
+            onNewGame()
+        } else {
+            _uiState.update { it.copy(showRestartDialog = true) }
+        }
+    }
+
+    fun onRestartConfirmed() {
+        _uiState.update { it.copy(showRestartDialog = false) }
+        _events.trySend(GameEvent.ShowRewardedAd(RewardType.NewGame))
+    }
+
+    fun onRestartCanceled() {
+        _uiState.update { it.copy(showRestartDialog = false) }
+    }
 
     fun onNewGame() {
         val wasGameOver = _uiState.value.showGameOverDialog
@@ -224,6 +248,7 @@ class GameViewModel(
                 undoIsFree = true,
                 showWinDialog = false,
                 showGameOverDialog = false,
+                showRestartDialog = false,
                 reviveAvailable = false,
             )
         }
@@ -328,5 +353,6 @@ class GameViewModel(
 
     companion object {
         private const val INTERSTITIAL_EVERY = 3
+        private const val FRESH_MOVES = 10
     }
 }
