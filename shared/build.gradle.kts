@@ -72,7 +72,3 @@ kotlin {
 compose.resources {
     packageOfResClass = "com.hcn2048.resources"
 }
-
-dependencies {
-    androidRuntimeClasspath(libs.compose.uiTooling)
-}
