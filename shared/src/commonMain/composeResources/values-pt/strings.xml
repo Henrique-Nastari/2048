@@ -25,9 +25,6 @@
     <string name="game_over_title">Fim de jogo!</string>
     <string name="game_over_score">Pontos: %1$d</string>
     <string name="revive_with_ad">Reviver (ver anúncio)</string>
-    <string name="restart_title">Recomeçar?</string>
-    <string name="restart_text">Você tem %1$d pontos. Recomeçar agora vai zerar sua pontuação.</string>
-    <string name="restart_with_ad">Ver anúncio e recomeçar</string>
     <string name="win_title">Você venceu!</string>
     <string name="win_text">Você alcançou o %1$d! Continue jogando para pontuar ainda mais.</string>
     <string name="keep_playing">Continuar jogando</string>

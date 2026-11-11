@@ -39,9 +39,6 @@ import com.hcn2048.resources.privacy_options
 import com.hcn2048.resources.remove_ads
 import com.hcn2048.resources.remove_ads_desc
 import com.hcn2048.resources.remove_ads_title
-import com.hcn2048.resources.restart_text
-import com.hcn2048.resources.restart_title
-import com.hcn2048.resources.restart_with_ad
 import com.hcn2048.resources.restore_purchases
 import com.hcn2048.resources.revive_with_ad
 import com.hcn2048.resources.settings
@@ -123,33 +120,6 @@ fun GameOverDialog(
         }
         Button(onClick = onNewGame, modifier = Modifier.fillMaxWidth()) {
             Text(stringResource(Res.string.new_game))
-        }
-    }
-}
-
-@Composable
-fun RestartDialog(
-    score: Int,
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit,
-) {
-    GameDialog(onDismiss = onDismiss) {
-        Text(
-            text = stringResource(Res.string.restart_title),
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-        )
-        Spacer(Modifier.height(8.dp))
-        Text(
-            text = stringResource(Res.string.restart_text, score),
-            textAlign = TextAlign.Center,
-        )
-        Spacer(Modifier.height(20.dp))
-        Button(onClick = onConfirm, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(Res.string.restart_with_ad))
-        }
-        TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(Res.string.keep_playing))
         }
     }
 }

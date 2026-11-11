@@ -128,10 +128,14 @@ class GameViewModel(
             )
         }
         persist(next)
-        if (next.status == GameStatus.Won) maybeRequestReview()
+        if (next.status == GameStatus.Won) {
+            // Reaching 2048 always shows an interstitial (rare, celebrated moment).
+            interstitialPending = true
+            maybeRequestReview()
+        }
         if (next.status == GameStatus.GameOver) {
             gameOverCount += 1
-            interstitialPending = gameOverCount % INTERSTITIAL_EVERY == 0
+            interstitialPending = gameOverCount % GAME_OVERS_PER_INTERSTITIAL == 0
             scope.launch { preferences.setGameOverCount(gameOverCount) }
         }
     }
@@ -207,37 +211,36 @@ class GameViewModel(
         }
     }
 
-    fun onRewardedAdUnavailable() {
-        _events.trySend(GameEvent.RewardedAdUnavailable)
+    fun onRewardedAdUnavailable(reward: RewardType) {
+        if (reward == RewardType.NewGame) {
+            // Never block the player: if no ad could be shown, restart for free.
+            onNewGame()
+        } else {
+            _events.trySend(GameEvent.RewardedAdUnavailable(reward))
+        }
     }
 
     // --- Game flow ---
 
     /**
-     * Toolbar button behavior: restarting a brand-new board is free; restarting a
-     * scored game asks for a rewarded ad (the dialog offers "keep playing" too).
+     * Toolbar button "New game": always asks for a rewarded ad before restarting.
+     * The game over / victory dialogs call [onNewGame] directly instead, since the
+     * player already went through an ad decision in those flows.
      */
     fun onNewGameRequested() {
-        val board = _uiState.value.board
-        val freshGame = board.score == 0 && board.moveCount < FRESH_MOVES
-        if (freshGame) {
-            onNewGame()
-        } else {
-            _uiState.update { it.copy(showRestartDialog = true) }
-        }
-    }
-
-    fun onRestartConfirmed() {
-        _uiState.update { it.copy(showRestartDialog = false) }
         _events.trySend(GameEvent.ShowRewardedAd(RewardType.NewGame))
     }
 
-    fun onRestartCanceled() {
-        _uiState.update { it.copy(showRestartDialog = false) }
+    /**
+     * Restart chosen inside a finished-game dialog (game over / victory).
+     * Shows the pending interstitial — never shown when the player revives.
+     */
+    fun onNewGameAfterFinished() {
+        onNewGame()
+        showPendingInterstitial()
     }
 
     fun onNewGame() {
-        val wasGameOver = _uiState.value.showGameOverDialog
         previousBoard = null
         reviveUsed = false
         val board = engine.newGame()
@@ -248,7 +251,6 @@ class GameViewModel(
                 undoIsFree = true,
                 showWinDialog = false,
                 showGameOverDialog = false,
-                showRestartDialog = false,
                 reviveAvailable = false,
             )
         }
@@ -256,7 +258,6 @@ class GameViewModel(
             preferences.setFreeUndoUsed(false)
             preferences.saveGame(GameSerializer.serialize(board))
         }
-        if (wasGameOver) showPendingInterstitial()
     }
 
     fun onContinueAfterWin() {
@@ -272,6 +273,7 @@ class GameViewModel(
             )
         }
         persist(updated)
+        showPendingInterstitial()
     }
 
     // --- Settings ---
@@ -352,7 +354,7 @@ class GameViewModel(
     }
 
     companion object {
-        private const val INTERSTITIAL_EVERY = 3
-        private const val FRESH_MOVES = 10
+        /** Game overs between interstitials. Victories always show one. */
+        private const val GAME_OVERS_PER_INTERSTITIAL = 2
     }
 }

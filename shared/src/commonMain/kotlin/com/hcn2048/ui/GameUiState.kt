@@ -19,7 +19,6 @@ data class GameUiState(
     val showSettingsDialog: Boolean = false,
     val showRemoveAdsDialog: Boolean = false,
     val showHowToPlayDialog: Boolean = false,
-    val showRestartDialog: Boolean = false,
     val removeAdsPrice: String? = null,
     val privacyOptionsRequired: Boolean = false,
 )
@@ -32,5 +31,5 @@ sealed interface GameEvent {
     data class ShowRewardedAd(val reward: RewardType) : GameEvent
     data object ShowInterstitial : GameEvent
     data class PurchaseFinished(val outcome: BillingOutcome) : GameEvent
-    data object RewardedAdUnavailable : GameEvent
+    data class RewardedAdUnavailable(val reward: RewardType) : GameEvent
 }

@@ -43,7 +43,6 @@ import com.hcn2048.ui.components.GameBoardView
 import com.hcn2048.ui.components.GameOverDialog
 import com.hcn2048.ui.components.HowToPlayDialog
 import com.hcn2048.ui.components.RemoveAdsDialog
-import com.hcn2048.ui.components.RestartDialog
 import com.hcn2048.ui.components.ScoreHeader
 import com.hcn2048.ui.components.SettingsDialog
 import com.hcn2048.ui.components.WinDialog
@@ -73,7 +72,7 @@ fun GameScreen(
                 is GameEvent.ShowRewardedAd -> {
                     ads.showRewarded(
                         onReward = { viewModel.onRewardEarned(event.reward) },
-                        onUnavailable = { viewModel.onRewardedAdUnavailable() },
+                        onUnavailable = { viewModel.onRewardedAdUnavailable(event.reward) },
                     )
                     null
                 }
@@ -90,7 +89,7 @@ fun GameScreen(
                     else -> purchaseError
                 }
 
-                GameEvent.RewardedAdUnavailable -> adUnavailable
+                is GameEvent.RewardedAdUnavailable -> adUnavailable
             }
             message?.let { snackbarHostState.showSnackbar(it) }
         }
@@ -182,7 +181,7 @@ fun GameScreen(
     if (state.showWinDialog) {
         WinDialog(
             onKeepPlaying = viewModel::onContinueAfterWin,
-            onNewGame = viewModel::onNewGame,
+            onNewGame = { viewModel.onNewGameAfterFinished() },
         )
     }
 
@@ -191,15 +190,7 @@ fun GameScreen(
             score = state.board.score,
             reviveAvailable = state.reviveAvailable,
             onRevive = viewModel::onReviveRequested,
-            onNewGame = viewModel::onNewGame,
-        )
-    }
-
-    if (state.showRestartDialog) {
-        RestartDialog(
-            score = state.board.score,
-            onConfirm = viewModel::onRestartConfirmed,
-            onDismiss = viewModel::onRestartCanceled,
+            onNewGame = { viewModel.onNewGameAfterFinished() },
         )
     }
 
