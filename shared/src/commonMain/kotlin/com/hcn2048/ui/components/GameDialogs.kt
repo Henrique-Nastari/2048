@@ -3,6 +3,7 @@ package com.hcn2048.ui.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.hcn2048.resources.Res
 import com.hcn2048.resources.buy
@@ -172,15 +174,17 @@ fun SettingsDialog(
                     Button(
                         onClick = { onThemeSelected(gameTheme.id) },
                         modifier = Modifier.weight(1f),
+                        contentPadding = PaddingValues(horizontal = 8.dp),
                     ) {
-                        Text(label, maxLines = 1)
+                        Text(label, maxLines = 1, fontSize = 13.sp)
                     }
                 } else {
                     OutlinedButton(
                         onClick = { onThemeSelected(gameTheme.id) },
                         modifier = Modifier.weight(1f),
+                        contentPadding = PaddingValues(horizontal = 8.dp),
                     ) {
-                        Text(label, maxLines = 1)
+                        Text(label, maxLines = 1, fontSize = 13.sp)
                     }
                 }
             }
