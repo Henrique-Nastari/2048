@@ -51,7 +51,7 @@ Fácil de aprender, difícil de largar. Baixe agora e comece a fundir! 🧩
 
 ### Short description
 ```
-Merge the tiles, reach 2048 and beat your high score! The classic addictive puzzle 🧩
+Merge the tiles and reach 2048! The classic addictive puzzle with themes 🧩
 ```
 
 ### Full description
